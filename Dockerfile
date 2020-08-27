@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 
 # copy dependencies
 
-COPY app/package*.json ./
+COPY ~/app/package*.json .
 
 # Install npm
 
@@ -16,7 +16,7 @@ RUN npm install
 
 # copy everything from current location to default location inside the container
 
-COPY ./app .
+COPY /app .
 
 #FROM node:alpine
 
