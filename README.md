@@ -1,6 +1,7 @@
 
 # Automating A Full Pipeline With Containerisation
 
+
 ## Note that we will be using 16.04 ubuntu AMI's to create our EC2 instances
 
 ## Installing Jenkins
