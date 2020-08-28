@@ -37,7 +37,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 ```
 sudo mkdir jenkins
-sudo wget http://34.247.181.80:8080/jnlpJars/agent.jar
+sudo wget <INSERT LINK TO AGENT.JAR FILES>
 ```
 
 - This downloads the agent.jar file
@@ -50,10 +50,10 @@ sudo adduser jenkins
 sudu su jenkins
 ```
 
-- Now we run the agent.jar file
+- Now we run the agent.jar file using the command given on the Jenkins dashboard
 - 
 ```
-java -jar agent.jar -jnlpUrl http://34.247.181.80:8080/computer/Jenkins-Slave/slave-agent.jnlp -secret 813e64a1fdd2e97f1128ffc6fa4378cb4359464c4a439e4eeb6b4ecda1d99ef3
+java -jar agent.jar -jnlpUrl <YOUR IP>/computer/Jenkins-Slave/slave-agent.jnlp -secret 813e64a1fdd2e97f1128ffc6fa4378cb4359464c4a439e4eeb6b4ecda1d99ef3
 
 ```
 
@@ -64,8 +64,6 @@ java -jar agent.jar -jnlpUrl http://34.247.181.80:8080/computer/Jenkins-Slave/sl
 - Now if we run a build we will get the error 'npm not found', therefore we will download npm on our jenkins slave
 
 
-- Do we run this build in sudo su? I dunno
-- 
 ```
 sudo apt-get install python-software-properties
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
@@ -111,7 +109,7 @@ sudo chmod 666 /var/run/docker.sock
 - We will now pull an image from a docker repository to check if we can see the application running on a browser
 
 ```
-sudo docker run -d -p 3000:3000 aosborne17/microservices-with-docker-and-nodejs:First_Commit
+sudo docker run -d -p 3000:3000 ibbocus/jenkins-docker-pipeline
 ```
 
 - We can then enter our app IP into the browser with the port being 3000
@@ -119,8 +117,6 @@ sudo docker run -d -p 3000:3000 aosborne17/microservices-with-docker-and-nodejs:
 `http://176.34.149.206:3000/`
 
 - And should see the app successfully running
-
-![](/images/App-Running-Through-Container.png)
 
 
 ## Creating our Continuous Deployment job
@@ -131,10 +127,6 @@ sudo docker run -d -p 3000:3000 aosborne17/microservices-with-docker-and-nodejs:
 
 - When creating the job, we want it to be triggered if our CI job is successful
 
-![](/images/Adding-Docker-Credentials.png)
-
-
-
 - For this pipeline to be succesfull we must add a credential which allows us to interact with our docker repository
   
 1)To do this from the dashboard we click manage jenkins
@@ -144,8 +136,6 @@ sudo docker run -d -p 3000:3000 aosborne17/microservices-with-docker-and-nodejs:
 3) Then click add credentials on the left hand side
 4) We will then add the username, password and id (the string we will uses to reference that credential within the pipeline)
 
-![](/images/Adding-Docker-Credentials.png)
-
 
 ## Creating the Docker Repository
 
@@ -153,15 +143,13 @@ sudo docker run -d -p 3000:3000 aosborne17/microservices-with-docker-and-nodejs:
 - This can be done on docker hub
 - On this instance we will call the repo ''automation-with-docker''
 
-![](/images/Creating-Docker-Repo.png)
-
 
 #### Adding the pipeline script
 
 ```
 pipeline {
   environment {
-    registry = "aosborne17/automation-with-docker"
+    registry = "<>"
     registryCredential = 'dockerhub'
     dockerImage = ''
   }
@@ -214,24 +202,15 @@ pipeline {
 
 - Each of the build should pass successfully
   
-![](/images/Pipeline-Stage-View.png)
-
 
 
 - We will also be able to see that a push has been made to our Docker Hub
-
-![](/images/Docker-Hub-Pushes.png)
 
 
 
 ### Overcoming Obstacles
 
 
-
-
-#### DEDICATION
-
-![](/images/Dedication.png)
 
 
 ## Continuous Deployment Job
