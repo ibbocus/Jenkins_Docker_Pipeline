@@ -30,4 +30,4 @@ EXPOSE 3000
 
 # start the app with CMD
 
-CMD ["node","app.js"]
+CMD ["app/", "node","app.js"]
