@@ -16,7 +16,7 @@ RUN npm install
 
 # copy everything from current location to default location inside the container
 
-COPY . .
+COPY /app .
 
 #FROM node:alpine
 
@@ -30,4 +30,4 @@ EXPOSE 3000
 
 # start the app with CMD
 
-CMD ["node","/usr/src/app/app/app.js"]
+CMD ["node","app.js"]
