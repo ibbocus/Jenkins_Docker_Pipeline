@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker rm -f $(docker ps --format "{{.ID}}")
+sudo docker rm -f $(sudo docker ps --format "{{.ID}}")
